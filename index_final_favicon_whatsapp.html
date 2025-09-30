@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="es-CO">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Seven Music Studios | Producción audiovisual, sala de ensayo y alquiler de equipos</title>
+  <meta name="description" content="Seven Music Studios: producción musical y audiovisual a la medida. Sala de ensayos equipada, estudio de grabación, alquiler de equipos y soporte técnico." />
+  <link id="favicon" rel="icon" href="https://drive.google.com/uc?export=view&id=1qTFkARLEqvyZxGDJ0qbFzA0ERvTOrXnP?v=2" type="image/png" sizes="32x32" />
+<link rel="icon" href="https://drive.google.com/uc?export=view&id=1qTFkARLEqvyZxGDJ0qbFzA0ERvTOrXnP?v=2" type="image/png" sizes="16x16" />
+<link rel="shortcut icon" href="https://drive.google.com/uc?export=view&id=1qTFkARLEqvyZxGDJ0qbFzA0ERvTOrXnP?v=2" type="image/png" />
+<link rel="apple-touch-icon" sizes="180x180" href="https://drive.google.com/uc?export=view&id=1qTFkARLEqvyZxGDJ0qbFzA0ERvTOrXnP?v=2" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    .logo-white{filter:brightness(0) invert(1)}
+    .btn{border-radius:.75rem}
+    .shadow-soft{box-shadow:0 12px 28px rgba(0,0,0,.12)}
+    .icon-btn{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:9999px;background:rgba(255,255,255,.12);transition:.2s}
+    .icon-btn:hover{background:rgba(255,255,255,.2);transform:translateY(-1px)}
+    .icon{width:20px;height:20px;display:block}
+  </style>
+
+  <script>
+    // IDs de archivos en Google Drive
+    // icon: idealmente el "árbol" (símbolo) en PNG/SVG fondo transparente. Si no existe todavía,
+    // se usará el logo completo como fallback automáticamente.
+    const DRIVE = {
+      icon: '1qTFkARLEqvyZxGDJ0qbFzA0ERvTOrXnP', // <-- Reemplazar por el ID del "árbol" cuando lo subas
+      logo: '1IZRwmFYpFIKrnRuLSY7zM27zC60NSv0E',
+      hero: '1yuLvHRbOnjMjtZib7FpmGtG_yMkjp6X5',
+      srv1: '10jqk2ICkN79pGi-JxYRhVu5sztjVcgRK',
+      srv2: '1vXEZXuv6mAMh_D0YZDocB1U2TmWJhy6F',
+      srv3: '1HIwXjKd4eBbc-jBw_gOef7lgf54a53QM',
+      about: '1wqsnsD_MSuP1LkbL3bLRfxzSPnLC6GSJ',
+      ally1: '1Hu388aaOuIcpeFEr5zbyfEpf_Wy_vWZz',
+      ally2: '1IHoyUW7zgaA5S7E6Z8xhS7uDPePgpZNk',
+      ally3: '1ZbzUNa1cipiUIYa08jJS6zJiu_gxOIqj',
+    };
+
+    function candidates(id, size=1600){
+      return [
+        `https://drive.google.com/uc?export=view&id=${id}`,
+        `https://drive.google.com/thumbnail?id=${id}&sz=w${size}`,
+        `https://lh3.googleusercontent.com/d/${id}`
+      ];
+    }
+    function resolve(id, cb, size){
+      const urls = candidates(id, size);
+      let i = 0;
+      const img = new Image();
+      function next(){
+        if(i>=urls.length) return;
+        img.onload = ()=> cb(urls[i]);
+        img.onerror = ()=>{ i++; next(); };
+        img.src = urls[i];
+      }
+      next();
+    }
+
+    document.addEventListener('DOMContentLoaded', ()=>{
+      // Logo header
+      resolve(DRIVE.logo, url=>{
+        const logo=document.getElementById('logo'); if(logo) logo.src=url;
+      }, 512);
+
+      // Favicon -> intentar con el ícono (árbol). Si falla, usar logo.
+      resolve(DRIVE.icon, url=>{
+        const fav=document.getElementById('favicon'); if(fav) fav.href=url;
+      }, 128);
+      // Cargar fallback de favicon si no se cargó el ícono
+      setTimeout(()=>{
+        const fav=document.getElementById('favicon');
+        if(fav && fav.href.includes('placehold')){
+          resolve(DRIVE.logo, url=>{ fav.href=url; }, 128);
+        }
+      }, 800);
+
+      // Hero bg
+      resolve(DRIVE.hero, url=>{
+        const hero=document.getElementById('hero'); if(hero) hero.style.backgroundImage=`url('${url}')`;
+      }, 1920);
+
+      // Servicios
+      resolve(DRIVE.srv1, url=>{ const el=document.getElementById('srv1'); if(el) el.src=url; });
+      resolve(DRIVE.srv2, url=>{ const el=document.getElementById('srv2'); if(el) el.src=url; });
+      resolve(DRIVE.srv3, url=>{ const el=document.getElementById('srv3'); if(el) el.src=url; });
+
+      // About
+      resolve(DRIVE.about, url=>{ const el=document.getElementById('aboutImg'); if(el) el.src=url; }, 1400);
+
+      // Aliados
+      resolve(DRIVE.ally1, url=>{ const el=document.getElementById('ally1'); if(el) el.src=url; }, 600);
+      resolve(DRIVE.ally2, url=>{ const el=document.getElementById('ally2'); if(el) el.src=url; }, 600);
+      resolve(DRIVE.ally3, url=>{ const el=document.getElementById('ally3'); if(el) el.src=url; }, 600);
+
+      // Logo footer
+      resolve(DRIVE.logo, url=>{
+        const fLogo = document.getElementById('footerLogo'); if(fLogo) fLogo.src = url;
+      }, 512);
+    });
+  </script>
+</head>
+<body class="font-body antialiased text-[#3A1C47] bg-white">
+  <!-- Header -->
+  <header class="sticky top-0 z-40 bg-[#1F5B2E]/95 backdrop-blur">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <img id="logo" src="" alt="Seven Music Studios" class="h-18 md:h-20 w-auto logo-white" />
+      </div>
+      <nav class="hidden md:flex items-center gap-6 text-sm text-white">
+        <a href="#inicio" class="hover:opacity-80">Inicio</a>
+        <a href="#servicios" class="hover:opacity-80">Servicios</a>
+        <a href="#sobre-nosotros" class="hover:opacity-80">Sobre Nosotros</a>
+        <a href="#aliados" class="hover:opacity-80">Aliados</a>
+        <a href="#contacto" class="hover:opacity-80">Contacto</a>
+      </nav>
+      <a href="https://wa.me/573045212656?text=Hola%20Seven%20Music%20Studios%2C%20quiero%20reservar" target="_blank" rel="noopener" class="btn px-4 py-2 text-[#1F5B2E] bg-white hover:bg-[#BFC7B9] transition font-semibold text-sm">Reservar</a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section id="inicio" class="relative">
+    <div id="hero" class="absolute inset-0 bg-center bg-cover"></div>
+    <div class="absolute inset-0 bg-black/55"></div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28 text-center">
+      <h1 class="font-title text-white text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
+        Alquiler de sala de ensayos musicales en Santa Marta desde $80.000
+      </h1>
+      <p class="mt-5 text-white/90 text-lg max-w-3xl mx-auto">
+        Proporcionamos servicios de producción audiovisual, alquiler de salas de ensayo y equipos profesionales de música.
+      </p>
+      <div class="mt-8 flex flex-wrap gap-3 justify-center">
+        <a href="https://wa.me/573045212656?text=Hola%20Seven%20Music%20Studios%2C%20quiero%20reservar%20una%20sala%20de%20ensayo" target="_blank" class="btn px-7 py-3 bg-[#1F5B2E] text-white font-semibold hover:bg-[#4A8C58] transition">Reservar</a>
+        <a href="#contacto" class="btn px-7 py-3 border border-white text-white font-semibold hover:bg-white hover:text-[#1F5B2E] transition">Solicitar cotización</a>
+      </div>
+      <div class="h-8"></div>
+    </div>
+  </section>
+
+  <!-- Servicios -->
+  <section id="servicios" class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="font-title text-3xl sm:text-4xl font-bold text-[#1F5B2E]">Nuestros Servicios</h2>
+        <p class="mt-4 text-gray-600 max-w-2xl mx-auto">En Seven Music Studios ofrecemos soluciones audiovisuales y musicales diseñadas a la medida para artistas, agrupaciones, productores y empresas de eventos.</p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-8">
+        <article class="bg-white rounded-2xl overflow-hidden shadow-soft flex flex-col">
+          <img id="srv1" src="" alt="Producción Audiovisual" class="w-full h-52 object-cover">
+          <div class="p-6 flex flex-col flex-1">
+            <h3 class="font-title text-xl font-semibold text-[#1F5B2E]">Producción Audiovisual</h3>
+            <p class="text-[#1F5B2E] font-semibold mb-3">Desde $600.000</p>
+            <p class="text-gray-600 flex-1">Realización de material audiovisual para necesidades artísticas y corporativas: grabación, edición y postproducción.</p>
+            <a href="https://wa.me/573045212656?text=Hola%20Seven%20Music%20Studios%2C%20quiero%20cotizar%20Producción%20Audiovisual" target="_blank" class="btn mt-5 w-full px-4 py-2 bg-[#1F5B2E] text-white font-semibold hover:bg-[#4A8C58] transition text-center">Reservar</a>
+          </div>
+        </article>
+
+        <article class="bg-white rounded-2xl overflow-hidden shadow-soft flex flex-col">
+          <img id="srv2" src="" alt="Alquiler de Sala de Ensayo" class="w-full h-52 object-cover">
+          <div class="p-6 flex flex-col flex-1">
+            <h3 class="font-title text-xl font-semibold text-[#1F5B2E]">Alquiler de Sala de Ensayo</h3>
+            <p class="text-[#1F5B2E] font-semibold mb-3">Desde $80.000</p>
+            <p class="text-gray-600 flex-1">Espacio acondicionado acústicamente con equipos profesionales para ensayos y pre-producción.</p>
+            <a href="https://wa.me/573045212656?text=Hola%20Seven%20Music%20Studios%2C%20quiero%20reservar%20una%20Sala%20de%20Ensayo" target="_blank" class="btn mt-5 w-full px-4 py-2 bg-[#1F5B2E] text-white font-semibold hover:bg-[#4A8C58] transition text-center">Reservar</a>
+          </div>
+        </article>
+
+        <article class="bg-white rounded-2xl overflow-hidden shadow-soft flex flex-col">
+          <img id="srv3" src="" alt="Alquiler de Equipos" class="w-full h-52 object-cover">
+          <div class="p-6 flex flex-col flex-1">
+            <h3 class="font-title text-xl font-semibold text-[#1F5B2E]">Alquiler de Equipos</h3>
+            <p class="text-[#1F5B2E] font-semibold mb-3">Desde $500.000</p>
+            <p class="text-gray-600 flex-1">Audio profesional, iluminación y backline con soporte técnico para shows y producciones.</p>
+            <a href="https://wa.me/573045212656?text=Hola%20Seven%20Music%20Studios%2C%20quiero%20cotizar%20Alquiler%20de%20Equipos" target="_blank" class="btn mt-5 w-full px-4 py-2 bg-[#1F5B2E] text-white font-semibold hover:bg-[#4A8C58] transition text-center">Reservar</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sobre Nosotros -->
+  <section id="sobre-nosotros" class="py-20 bg-[#1F5B2E] text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-12 items-center">
+      <div>
+        <h2 class="font-title text-3xl sm:text-4xl font-bold mb-4">Sobre nosotros</h2>
+        <h3 class="text-xl font-semibold mb-2">Carlos Jaimes</h3>
+        <p class="opacity-90 mb-6">Fundador de Seven Music Studios</p>
+        <p class="leading-relaxed opacity-95">Carlos Jaimes es un apasionado de la música cuyo aprendizaje ha sido principalmente empírico. Con más de 15 años explorando, practicando y enamorado de este arte, ha transformado su pasión en un estilo de vida y en un laboratorio creativo que impulsa el talento emergente.</p>
+      </div>
+      <div>
+        <img id="aboutImg" src="" alt="Carlos Jaimes fundador de Seven Music Studios" class="rounded-lg shadow-lg object-cover w-full h-auto">
+      </div>
+    </div>
+  </section>
+
+  <!-- Aliados -->
+  <section id="aliados" class="py-20 bg-[#29291F] text-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="font-title text-3xl sm:text-4xl font-bold mb-12">Nuestros Aliados</h2>
+      <div class="flex flex-wrap justify-center items-center gap-12">
+        <img id="ally1" src="" alt="SENA" class="h-16 object-contain logo-white">
+        <img id="ally2" src="" alt="Fondo Emprender" class="h-16 object-contain logo-white">
+        <img id="ally3" src="" alt="Cámara Comercio SM" class="h-16 object-contain logo-white">
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="contacto" class="bg-[#1F5B2E] text-white pt-14">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid gap-10 md:grid-cols-4">
+      <div>
+        <img id="footerLogo" src="" alt="Seven Music Studios" class="h-24 w-auto mb-4 logo-white" />
+        <p class="text-white/80 text-sm">Casa productora y estudio en Santa Marta. Ensayos, grabación, producción audiovisual y alquiler de equipos.</p>
+      </div>
+      <div>
+        <h4 class="font-semibold text-lg mb-3">Contacto</h4>
+        <ul class="space-y-2 text-sm">
+          <li><a class="hover:underline" href="tel:+573045212656">+57 304 521 2656</a></li>
+          <li><a class="hover:underline" href="mailto:sevenmusicstudios@gmail.com">sevenmusicstudios@gmail.com</a></li>
+          <li>Carrera 21 #23 - 50 Villa Carina Casa 7</li>
+          <li class="pt-2 text-white/70">Horarios: Lun–Sáb 9:00–19:00</li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold text-lg mb-3">Enlaces</h4>
+        <ul class="space-y-2 text-sm">
+          <li><a class="hover:underline" href="#inicio">Inicio</a></li>
+          <li><a class="hover:underline" href="#servicios">Servicios</a></li>
+          <li><a class="hover:underline" href="#sobre-nosotros">Sobre Nosotros</a></li>
+          <li><a class="hover:underline" href="#aliados">Aliados</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold text-lg mb-3">Síguenos</h4>
+        <div class="flex items-center gap-3">
+          <!-- Google Maps -->
+          <a class="icon-btn" href="https://www.google.com/maps/place/Seven+Music+Studios/@11.2350175,-74.1934258,17z/data=!3m1!4b1!4m6!3m5!1s0x8ef4f54da2dc9367:0x7900192c5cdc5549!8m2!3d11.2350175!4d-74.1908509!16s%2Fg%2F11fqpd6gg7?entry=ttu&g_ep=EgoyMDI1MDkyOC4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener" aria-label="Google Maps - Seven Music Studios">
+            <!-- ícono G -->
+            <svg class="icon" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+              <path fill="#fff" d="M43.611 20.083H42V20H24v8h11.303C33.826 31.438 29.28 34 24 34c-7.732 0-14-6.268-14-14s6.268-14 14-14c3.57 0 6.82 1.369 9.293 3.606l5.657-5.657C34.046 1.403 29.268 0 24 0 10.745 0 0 10.745 0 24s10.745 24 24 24c12.683 0 23-9.167 23-24 0-1.6-.174-3.117-.389-3.917z"/>
+            </svg>
+          </a>
+          <!-- Instagram -->
+          <a class="icon-btn" href="https://instagram.com/sevenmusicstudios" target="_blank" rel="noopener" aria-label="Instagram - Seven Music Studios">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2" y="2" width="20" height="20" rx="5" stroke="#fff" stroke-width="2"/>
+              <circle cx="12" cy="12" r="4" stroke="#fff" stroke-width="2"/>
+              <circle cx="17.5" cy="6.5" r="1.5" fill="#fff"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="mt-10 border-t border-white/15">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 text-xs text-white/70 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <span>© <span id="year"></span> Seven Music Studios. Todos los derechos reservados.</span>
+        <span>Desarrollado con ♥ por Seven Music Studios</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+
+  <!-- Botón flotante de WhatsApp -->
+  <a
+    href="https://wa.me/573045212656?text=Hola%20Seven%20Music%20Studios%2C%20me%20gustar%C3%ADa%20m%C3%A1s%20informaci%C3%B3n"
+    target="_blank" rel="noopener"
+    aria-label="Escríbenos por WhatsApp"
+    class="fixed z-50 bottom-4 right-4 md:bottom-6 md:right-6 bg-[#25D366] hover:bg-[#1fb057] text-white rounded-full shadow-lg shadow-black/20 p-4 md:p-5 transition transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-white/60">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" class="w-6 h-6 md:w-7 md:h-7" fill="currentColor" aria-hidden="true">
+      <path d="M19.11 17.59c-.29-.14-1.7-.84-1.96-.94-.26-.1-.45-.14-.64.14-.19.29-.74.94-.91 1.13-.17.19-.34.22-.63.08-.29-.14-1.23-.45-2.35-1.43-.86-.76-1.44-1.7-1.61-1.99-.17-.29-.02-.45.13-.59.13-.13.29-.34.43-.51.14-.17.19-.29.29-.48.1-.19.05-.36-.03-.51-.08-.14-.64-1.54-.88-2.11-.23-.55-.47-.48-.64-.49-.17-.01-.36-.01-.55-.01-.19 0-.51.07-.78.36-.26.29-1 1-1 2.43 0 1.43 1.03 2.81 1.17 3 .14.19 2.03 3.1 4.91 4.35.69.3 1.23.48 1.65.61.69.22 1.32.19 1.82.12.56-.08 1.7-.7 1.94-1.38.24-.68.24-1.26.17-1.38-.07-.12-.26-.19-.55-.33z"/>
+      <path d="M16.02 3C9.93 3 5 7.93 5 14.02c0 2.33.73 4.5 1.97 6.27L6 27l6.88-1.81c1.71.94 3.69 1.47 5.77 1.47 6.09 0 11.02-4.93 11.02-11.02C29.67 7.93 24.74 3 18.65 3h-2.63zm0 2h2.63c5 0 9.04 4.04 9.04 9.04 0 5-4.04 9.04-9.04 9.04-1.88 0-3.62-.57-5.06-1.54l-.36-.24-4.06 1.07 1.08-3.96-.26-.38A9.02 9.02 0 0 1 7 14.02C7 9.02 11.04 5 16.04 5z"/>
+    </svg>
+  </a>
+
+</body>
+</html>
